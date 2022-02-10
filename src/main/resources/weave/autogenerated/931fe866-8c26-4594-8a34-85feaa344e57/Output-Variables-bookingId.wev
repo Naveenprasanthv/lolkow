@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_931fe866_8c26_4594_8a34_85feaa344e57_Output_Variables_bookingId = Any
+

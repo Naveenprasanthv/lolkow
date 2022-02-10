@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:bmh="http://www.bookmyhotel.com/Hotel/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Hotel" targetNamespace="http://www.bookmyhotel.com/Hotel/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.bookmyhotel.com/Hotel/">
+      <xsd:element name="GetHotels">
+        <xsd:complexType>
+          <xsd:sequence>
+
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHotelsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+
+          	<xsd:element name="Hotel" type="bmh:HotelType"></xsd:element>
+
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PostHotel">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="Hotel" type="bmh:HotelType"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PostHotelResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="ResponseMessage"
+      				type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="Reference" type="xsd:int" maxOccurs="1" minOccurs="0"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHotelById">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="HotelId" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHotelByIdResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="Hotel" type="bmh:HotelType"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateHotelById">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="PatchHotelBody" type="bmh:PatchHotelType"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateHotelByIdResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteHotelById">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="HotelId" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteHotelByIdResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="ResponseMessage"
+      				type="xsd:string">
+      			</xsd:element>
+      			<xsd:element name="Reference" type="xsd:int" maxOccurs="1" minOccurs="0"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="HotelType">
+      	<xsd:sequence>
+      		<xsd:element name="HotelId" type="xsd:int"></xsd:element>
+      		<xsd:element name="HotelName" type="xsd:string"></xsd:element>
+
+
+      		<xsd:element name="rating" type="xsd:string"></xsd:element>
+      		<xsd:element name="address" type="xsd:string"></xsd:element>
+      		<xsd:element name="rooms" type="xsd:string"></xsd:element>
+      		<xsd:element name="paymentType" type="xsd:string"></xsd:element>
+      		<xsd:element name="amenities" type="xsd:string"></xsd:element>
+      		<xsd:element name="food" type="xsd:string"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetBookings">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBookingsResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="booking" type="bmh:BookingType"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="PatchHotelType">
+      	<xsd:sequence>
+      		<xsd:element name="HotelId" type="xsd:int"></xsd:element>
+      		<xsd:element name="HotelName" type="xsd:string"></xsd:element>
+      		<xsd:element name="rating" type="xsd:string"></xsd:element>
+      		<xsd:element name="address" type="xsd:string"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+    
+      <xsd:complexType name="BookingType">
+      	<xsd:sequence>
+      		<xsd:element name="bookingId" type="xsd:int"></xsd:element>
+      		<xsd:element name="startDate" type="xsd:date"></xsd:element>
+      		<xsd:element name="endDate" type="xsd:date"></xsd:element>
+      		<xsd:element name="amenities" type="xsd:string"></xsd:element>
+      		<xsd:element name="food" type="xsd:string"></xsd:element>
+      		<xsd:element name="room" type="xsd:string"></xsd:element>
+      		<xsd:element name="hotelId" type="xsd:int"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="BookingPatchType">
+      	<xsd:sequence>
+      		<xsd:element name="bookingId" type="xsd:int"></xsd:element>
+      		<xsd:element name="startDate" type="xsd:date"></xsd:element>
+      		<xsd:element name="endDate" type="xsd:date"></xsd:element>
+
+      		<xsd:element name="food" type="xsd:string"></xsd:element>
+      		<xsd:element name="room" type="xsd:string"></xsd:element>
+      	</xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="PostBooking">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="booking" type="bmh:BookingType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="PostBookingResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="ResponseMessage"
+            				type="xsd:string">
+            			</xsd:element>
+            			<xsd:element name="Reference"
+            				type="xsd:int" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetBookingById">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="bookingId"
+            				type="xsd:int">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetBookingByIdResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="booking"
+            				type="bmh:BookingType">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateBookingById">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="bookingPatch"
+            				type="bmh:BookingPatchType">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateBookingByIdResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="ResponseMessage"
+            				type="xsd:string">
+            			</xsd:element>
+            			<xsd:element name="Reference"
+            				type="xsd:int" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DeleteBookingById">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="bookingId" type="xsd:int"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DeleteBookingByIdResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="ResponseMessage"
+            				type="xsd:string">
+            			</xsd:element>
+            			<xsd:element name="Reference"
+            				type="xsd:int" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPartner">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="in" type="xsd:string"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPartnerResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="xsd:string"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetHotelsRequest">
+    <wsdl:part element="bmh:GetHotels" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetHotelsResponse">
+    <wsdl:part element="bmh:GetHotelsResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="PostHotelRequest">
+  	<wsdl:part name="parameters" element="bmh:PostHotel"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PostHotelResponse">
+  	<wsdl:part name="parameters" element="bmh:PostHotelResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetHotelByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:GetHotelById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetHotelByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:GetHotelByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateHotelByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:UpdateHotelById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateHotelByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:UpdateHotelByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeleteHotelByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:DeleteHotelById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeleteHotelByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:DeleteHotelByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetBookingsRequest">
+  	<wsdl:part name="parameters" element="bmh:GetBookings"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetBookingsResponse">
+  	<wsdl:part name="parameters" element="bmh:GetBookingsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PostBookingRequest">
+  	<wsdl:part name="parameters" element="bmh:PostBooking"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PostBookingResponse">
+  	<wsdl:part name="parameters" element="bmh:PostBookingResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetBookingByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:GetBookingById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetBookingByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:GetBookingByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateBookingByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:UpdateBookingById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateBookingByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:UpdateBookingByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeleteBookingByIdRequest">
+  	<wsdl:part name="parameters" element="bmh:DeleteBookingById"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeleteBookingByIdResponse">
+  	<wsdl:part name="parameters" element="bmh:DeleteBookingByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerRequest">
+  	<wsdl:part name="parameters" element="bmh:GetPartner"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPartnerResponse">
+  	<wsdl:part name="parameters" element="bmh:GetPartnerResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Hotel">
+    <wsdl:operation name="GetHotels">
+      <wsdl:input message="bmh:GetHotelsRequest"/>
+      <wsdl:output message="bmh:GetHotelsResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="PostHotel">
+    	<wsdl:input message="bmh:PostHotelRequest"></wsdl:input>
+    	<wsdl:output message="bmh:PostHotelResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHotelById">
+    	<wsdl:input message="bmh:GetHotelByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:GetHotelByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHotelById">
+    	<wsdl:input message="bmh:UpdateHotelByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:UpdateHotelByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHotelById">
+    	<wsdl:input message="bmh:DeleteHotelByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:DeleteHotelByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBookings">
+    	<wsdl:input message="bmh:GetBookingsRequest"></wsdl:input>
+    	<wsdl:output message="bmh:GetBookingsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostBooking">
+    	<wsdl:input message="bmh:PostBookingRequest"></wsdl:input>
+    	<wsdl:output message="bmh:PostBookingResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBookingById">
+    	<wsdl:input message="bmh:GetBookingByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:GetBookingByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBookingById">
+    	<wsdl:input message="bmh:UpdateBookingByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:UpdateBookingByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBookingById">
+    	<wsdl:input message="bmh:DeleteBookingByIdRequest"></wsdl:input>
+    	<wsdl:output message="bmh:DeleteBookingByIdResponse"></wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:portType>
+  <wsdl:binding name="HotelSOAP" type="bmh:Hotel">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetHotels">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/GetHotels"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="PostHotel">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/PostHotel"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      </wsdl:operation>
+      
+          <wsdl:operation name="GetHotelById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/GetHotelById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+          <wsdl:operation name="UpdateHotelById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/UpdateHotelById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+ 
+          <wsdl:operation name="DeleteHotelById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/DeleteHotelById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+          <wsdl:operation name="GetBookings">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/GetBookings"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+          <wsdl:operation name="PostBooking">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/PostBooking"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+          <wsdl:operation name="GetBookingById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/GetBookingById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation> 
+    
+          <wsdl:operation name="UpdateBookingById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/UpdateBookingById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+          <wsdl:operation name="DeleteBookingById">
+      <soap:operation soapAction="http://www.bookmyhotel.com/Hotel/DeleteBookingById"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+  </wsdl:binding>
+  <wsdl:service name="Hotel">
+    <wsdl:port binding="bmh:HotelSOAP" name="HotelSOAP">
+      <soap:address location="http://www.bookmyhotel.com/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

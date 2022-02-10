@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_5a71e90a_7786_4f07_b5c1_3a8e65832c59_Output_Payload = Array<{|  hotelId: Number,   hotelName: String,   rating?: String,   address?: String,   rooms?: Number,   paymentTypes?: String,   amenities?: String,   food?: String|}>
+

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+    <apikit-soap:config httpStatusVarName="httpStatus" name="soapkit-config" port="HotelSOAP" service="Hotel" wsdlLocation="bookMyHotel.wsdl"/>
+    <flow name="api-main">
+        <http:listener path="/Hotel/HotelSOAP" config-ref="HTTP_Listener_config">
+            <http:response statusCode="#[attributes.additionalTransportData.statusCode default 200]">
+                <http:headers><![CDATA[#[attributes.protocolHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[attributes.additionalTransportData.statusCode default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[attributes.protocolHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit-soap:router config-ref="soapkit-config">
+            <apikit-soap:attributes><![CDATA[#[%dw 2.0
+              output application/java
+              ---
+              {
+                  headers: attributes.headers,
+                  method: attributes.method,
+                  queryString: attributes.queryString
+            }]]]></apikit-soap:attributes>
+        </apikit-soap:router>
+    </flow>
+    <flow name="GetHotels:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="b61f3965-5cdf-4aed-b237-638709137ca4" name="GetHotels"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Hotels: payload
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="PostHotel:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="56c387f2-cf09-4241-82e4-e437dcdd9377" name="PostHotel"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		"Message": "Your Hotel has been added successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="GetHotelById:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="f21c75d0-c6a5-45e7-875c-05b734fb06bf" name="GetHotelsById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		HotelById: payload
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="UpdateHotelById:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="86066041-eff3-4ae9-b07a-537ba20f5f24" name="UpdateHotelsById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Message: "Your Hotel has been updated Successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="DeleteHotelById:\soapkit-config" doc:id="7d4a961b-0958-499f-9f65-76cf0b01ab5a">
+        <flow-ref doc:name="Flow Reference" doc:id="ea079388-28a7-4f16-ba72-4c0096d474e1" name="DeleteHotelsById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Message: "Hotel Deleted Successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="GetBookings:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="8074e263-f88b-4a24-a9f6-22c6e8226ba8" name="GetBookings"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Bookings: payload
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="PostBooking:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="d6372cdf-6855-463c-a657-3c23110efd26" name="PostBooking"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		"Message": "Your Booking has been added successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="GetBookingById:\soapkit-config" doc:id="62f78b56-d718-482c-a0da-aa174c2b0c82">
+        <flow-ref doc:name="Flow Reference" doc:id="49268566-7ea6-4d46-9ab2-8b16bd9de7ac" name="GetBookingsById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		BookingById: payload
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="UpdateBookingById:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="0bbc421f-49e9-40cd-841b-918e7ba5fe96" name="UpdateBookingsById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Message: "Your booking has been updated Successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="DeleteBookingById:\soapkit-config">
+        <flow-ref doc:name="Flow Reference" doc:id="95125b6a-6d71-4fa6-8a8b-f081d40e9794" name="DeleteBookingById"/>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+    	result: {
+    		Message: "Your booking has been cancelled Successfully."
+ }
+    } write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+</mule>
