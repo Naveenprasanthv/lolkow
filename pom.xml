@@ -7,7 +7,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>lolkow-lol</name>
+	<name>lolkow</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,7 +35,12 @@
 							<groupId>com.mycompany</groupId>
 							<artifactId>mysql-connector-java-8.0.16</artifactId>
 						</sharedLibrary>
+						<sharedLibrary>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+						</sharedLibrary>
 					</sharedLibraries>
+					<classifier>mule-application</classifier>
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>${muleVersion}</muleVersion>
@@ -85,6 +90,11 @@
 			<groupId>com.mycompany</groupId>
 			<artifactId>mysql-connector-java-8.0.16</artifactId>
 			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.48</version>
 		</dependency>
 	</dependencies>
 
